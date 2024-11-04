@@ -1,0 +1,14 @@
+body{
+    background-color: #90e7ea;
+}
+
+div{
+    border: 2px solid black;
+    font-size: 24px;
+    text-align: center;
+    background-color: #66ffff;
+}
+
+h1{
+    text-align: center;
+}
