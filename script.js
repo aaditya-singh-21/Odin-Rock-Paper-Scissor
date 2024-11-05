@@ -22,19 +22,20 @@ function checkwinner(playerchoice, computerchoice){
 
 // taking user input
 function getHumanchoice(){
-    let validation = false;
+    let validinput = false;
 
-    while(validation == false){
+    while(validinput == false){
         let choice = prompt("Enter Rock, paper or scissor");
         if(choice == null){
             continue;
         }
         let playerchoice = choice.toLowerCase();
         if(options.includes(playerchoice)){
-            validation = true;
+            validinput = true;
             return playerchoice;
         }
     }
 }
 
 getHumanchoice();
+getComputerchoice();
