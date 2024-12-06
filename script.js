@@ -37,5 +37,13 @@ function getHumanchoice(){
     }
 }
 
-getHumanchoice();
+function DisplayOutput(result){
+    console.log(result);
+}
+
 getComputerchoice();
+getHumanchoice();
+
+var result = checkwinner();
+
+DisplayOutput(result);
