@@ -3,7 +3,7 @@ const options = ["rock", "paper", "scissor"];
 // Taking the computer input
 function getComputerchoice(){
     let choice = options[Math.floor(Math.random() * options.length)];
-    console.log(choice);
+    return choice;
 }
 
 // checking for the winner
@@ -13,10 +13,10 @@ function checkwinner(playerchoice, computerchoice){
     }
     else if((playerchoice == "rock" && computerchoice == "scissor" || playerchoice == "paper" && computerchoice == "rock" 
         || playerchoice == "scissor" && computerchoice == "paper")){
-            return "Player"
+            return "Player Wins!"
     }
     else{
-        return "Computer";
+        return "Computer Wins!";
     }
 }
 
@@ -36,14 +36,16 @@ function getHumanchoice(){
         }
     }
 }
+for (let i = 1; i <= 5; i++) {
+    alert(`Round ${i}`);
+    let human = getHumanchoice();
+    if (human === null) break; // Exit the game if user cancels
+    let comp = getComputerchoice();
 
-function DisplayOutput(result){
+    let result = checkwinner(human, comp);
+    console.log(`Player chose: ${human}`);
+    console.log(`Computer chose: ${comp}`);
     console.log(result);
+
+    alert(`Player chose: ${human}\nComputer chose: ${comp}\n${result}`);
 }
-
-getComputerchoice();
-getHumanchoice();
-
-var result = checkwinner();
-
-DisplayOutput(result);
