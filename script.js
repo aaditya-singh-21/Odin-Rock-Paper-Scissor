@@ -56,9 +56,9 @@ for (let i = 1; i <= 5; i++) {
 }
 
 if(playercount > computercount){
-    console.log("Player Won!");
+    console.log("Player Won!" + playercount + " - " + computercount);
 } else if(computercount > playercount){
-    console.log("Computer Won!");
+    console.log("Computer Won!"  + playercount + " - " + computercount);
 } else{
-    console.log("It's a draw!");
+    console.log("It's a draw!" + playercount + " - " + computercount);
 }
