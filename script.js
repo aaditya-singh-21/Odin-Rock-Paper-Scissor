@@ -1,5 +1,8 @@
 const options = ["rock", "paper", "scissor"];
 
+let playercount = 0;
+let computercount = 0;
+
 // Taking the computer input
 function getComputerchoice(){
     let choice = options[Math.floor(Math.random() * options.length)];
@@ -13,9 +16,11 @@ function checkwinner(playerchoice, computerchoice){
     }
     else if((playerchoice == "rock" && computerchoice == "scissor" || playerchoice == "paper" && computerchoice == "rock" 
         || playerchoice == "scissor" && computerchoice == "paper")){
+            playercount++;
             return "Player Wins!"
     }
     else{
+        computercount++;
         return "Computer Wins!";
     }
 }
@@ -48,4 +53,12 @@ for (let i = 1; i <= 5; i++) {
     console.log(result);
 
     alert(`Player chose: ${human}\nComputer chose: ${comp}\n${result}`);
+}
+
+if(playercount > computercount){
+    console.log("Player Won!");
+} else if(computercount > playercount){
+    console.log("Computer Won!");
+} else{
+    console.log("It's a draw!");
 }
