@@ -2,11 +2,23 @@ const options = ["rock", "paper", "scissor"];
 
 let playercount = 0;
 let computercount = 0;
+let round = 1;
+const maxRounds = 5;
+
+// DOM Elements
+const playerScoreEl = document.getElementById('player-score');
+const computerScoreEl = document.getElementById('computer-score');
+const roundEl = document.getElementById('round');
+const playerChoiceEl = document.getElementById('player-choice');
+const computerChoiceEl = document.getElementById('computer-choice');
+const resultMessageEl = document.getElementById('result-message');
+const choiceBtns = document.querySelectorAll('.choice-btn');
+const themeToggle = document.getElementById('theme-toggle');
+const modeLabel = document.getElementById('mode-label');
 
 // Taking the computer input
 function getComputerchoice(){
-    let choice = options[Math.floor(Math.random() * options.length)];
-    return choice;
+    return options[Math.floor(Math.random() * options.length)];
 }
 
 // checking for the winner
@@ -25,40 +37,70 @@ function checkwinner(playerchoice, computerchoice){
     }
 }
 
-// taking user input
-function getHumanchoice(){
-    let validinput = false;
+function updateUI(player, computer, result) {
+    playerScoreEl.textContent = `Player: ${playercount}`;
+    computerScoreEl.textContent = `Computer: ${computercount}`;
+    playerChoiceEl.textContent = `Player chose: ${player}`;
+    computerChoiceEl.textContent = `Computer chose: ${computer}`;
+    resultMessageEl.textContent = result;
+    roundEl.textContent = `Round ${round} / ${maxRounds}`;
+}
 
-    while(validinput == false){
-        let choice = prompt("Enter Rock, paper or scissor");
-        if(choice == null){
-            continue;
-        }
-        let playerchoice = choice.toLowerCase();
-        if(options.includes(playerchoice)){
-            validinput = true;
-            return playerchoice;
-        }
+function endGame() {
+    let finalMsg = '';
+    if (playercount > computercount) {
+        finalMsg = `Player Won! ${playercount} - ${computercount}`;
+    } else if (computercount > playercount) {
+        finalMsg = `Computer Won! ${playercount} - ${computercount}`;
+    } else {
+        finalMsg = `It's a draw! ${playercount} - ${computercount}`;
+    }
+    resultMessageEl.textContent = finalMsg;
+    choiceBtns.forEach(btn => btn.disabled = true);
+    roundEl.textContent = `Game Over`;
+}
+
+function handleChoice(e) {
+    if (round > maxRounds) return;
+    const human = e.currentTarget.getAttribute('data-choice');
+    const comp = getComputerchoice();
+    const result = checkwinner(human, comp);
+    updateUI(human, comp, result);
+    round++;
+    if (round > maxRounds) {
+        setTimeout(endGame, 600);
     }
 }
-for (let i = 1; i <= 5; i++) {
-    alert(`Round ${i}`);
-    let human = getHumanchoice();
-    if (human === null) break; // Exit the game if user cancels
-    let comp = getComputerchoice();
 
-    let result = checkwinner(human, comp);
-    console.log(`Player chose: ${human}`);
-    console.log(`Computer chose: ${comp}`);
-    console.log(result);
+choiceBtns.forEach(btn => {
+    btn.addEventListener('click', handleChoice);
+});
 
-    alert(`Player chose: ${human}\nComputer chose: ${comp}\n${result}`);
+// Theme toggle
+function setTheme(isDark) {
+    document.body.classList.toggle('dark', isDark);
+    if (isDark) {
+        modeLabel.innerHTML = '<span class="icon">☀️</span> Light Mode';
+    } else {
+        modeLabel.innerHTML = '<span class="icon">🌙</span> Dark Mode';
+    }
 }
 
-if(playercount > computercount){
-    console.log("Player Won!" + playercount + " - " + computercount);
-} else if(computercount > playercount){
-    console.log("Computer Won!"  + playercount + " - " + computercount);
-} else{
-    console.log("It's a draw!" + playercount + " - " + computercount);
-}
+themeToggle.addEventListener('change', (e) => {
+    setTheme(e.target.checked);
+    localStorage.setItem('rps-theme', e.target.checked ? 'dark' : 'light');
+});
+
+// On load, set theme from localStorage
+(function () {
+    const savedTheme = localStorage.getItem('rps-theme');
+    if (savedTheme === 'dark') {
+        themeToggle.checked = true;
+        setTheme(true);
+    } else {
+        setTheme(false);
+    }
+})();
+
+// Initial UI state
+updateUI('-', '-', 'Make your move!');

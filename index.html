@@ -8,12 +8,33 @@
 
 </head>
 <body>
-    <script src="script.js"></script>
-    <h1>Rock, Paper and Scissors</h1>
-    <div>
-        <p>This is a game of Rock Paper and Scissor, but you might wonder why the results aren't visible</p>
-        <p>Well, This was entirely made for console so in order to see the results press "ctrl + shift + J" on your
-             keyboard or in other words, simply open the console to see the results.</p>
+    <div class="container">
+        <h1>Rock, Paper, Scissors</h1>
+        <div class="mode-toggle">
+            <label class="switch">
+                <input type="checkbox" id="theme-toggle">
+                <span class="slider"></span>
+            </label>
+            <span id="mode-label"><span class="icon">🌙</span> Dark Mode</span>
+        </div>
+        <div class="scoreboard">
+            <span id="player-score">Player: 0</span>
+            <span id="computer-score">Computer: 0</span>
+        </div>
+        <div class="round-info">
+            <span id="round">Round 1 / 5</span>
+        </div>
+        <div class="choices">
+            <button class="choice-btn" data-choice="rock">🪨 Rock</button>
+            <button class="choice-btn" data-choice="paper">📄 Paper</button>
+            <button class="choice-btn" data-choice="scissor">✂️ Scissor</button>
+        </div>
+        <div class="results">
+            <div id="player-choice">Player chose: -</div>
+            <div id="computer-choice">Computer chose: -</div>
+            <div id="result-message">Make your move!</div>
+        </div>
     </div>
+    <script src="script.js"></script>
 </body>
 </html>
